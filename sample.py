@@ -2,6 +2,7 @@
 #  受け取り
 #
 import sys
+
 input = sys.stdin.readline
 
 # String受け取り改行コード削除
@@ -29,19 +30,19 @@ l = [int(char) for char in s]
 
 
 # List降順
-l.sort(reverse = True)
+l.sort(reverse=True)
 
 # ListループIndex
 for index, num in enumerate(l):
     break
 # List結合
-''.joins(l)
+"".joins(l)
 
 # List合計
 sum(l)
 
 # 二次元配列の横要素合計、縦要素合計
-l [[1,2,3][2,3,4]] # 二次元配列
+l[[1, 2, 3][2, 3, 4]]  # 二次元配列
 yoko = list(map(sum, l))
 tate = list(map(sum, zip(*l)))
 
@@ -70,7 +71,7 @@ def digit_sum(n):
 def factorization(n):
     arr = []
     temp = n
-    for i in range(2, int(-(-n ** 0.5 // 1)) + 1):
+    for i in range(2, int(-(-(n**0.5) // 1)) + 1):
         if temp % i == 0:
             cnt = 0
             while temp % i == 0:
@@ -85,15 +86,17 @@ def factorization(n):
 factorization(24)
 ## [[2, 3], [3, 1]]
 
+
 # エラトステネスの篩を用いてn以下の最小素因数を格納した配列を返す
 def sieve(n):
     spf = list(range(n + 1))
-    for i in range(2, int(n ** 0.5) + 1):
+    for i in range(2, int(n**0.5) + 1):
         if spf[i] == i:
             for j in range(i * i, n + 1, i):
                 if spf[j] == j:
                     spf[j] = i
     return spf
+
 
 # xを素因数分解する
 def factorize(x, spf):
@@ -106,3 +109,11 @@ def factorize(x, spf):
             count += 1
         res.append([factor, count])
     return res
+
+#
+# math
+#
+
+# ルートの作成方法
+import math
+math.sqrt(25) # =>5
