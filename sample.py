@@ -2,22 +2,21 @@
 #  受け取り
 #
 import sys
-
-input = sys.stdin.readline
-
 # String受け取り改行コード削除
 S = input().strip()
 
 # Int受け取り
-A = int(input())
+A = int(sys.stdin.readline())
 # 空白区切りInt受け取り
-A, B = map(int, input().split())
+A, B = map(int, sys.stdin.readline().split())
 # 空白区切りIntList受け取り
-l = list(map(int, input().split()))
+l = list(map(int, sys.stdin.readline().split()))
+# 標準入力からA個の整数B_iを読み込んでリストに格納する
+lb= [int(input()) for _ in range(A)]
 
 # 二次元配列受け取り
-H, W = map(int, input().split())
-l = [list(map(int, input().split())) for _ in range(H)]
+H, W = map(int, sys.stdin.readline().split())
+l = [list(map(int, sys.stdin.readline().split())) for _ in range(H)]
 
 
 #
@@ -28,9 +27,12 @@ l = [list(map(int, input().split())) for _ in range(H)]
 s = input()
 l = [int(char) for char in s]
 
-
 # List降順
 l.sort(reverse=True)
+# 1から5までを出力
+for i in range(1, 6):
+    print(i)
+
 
 # ListループIndex
 for index, num in enumerate(l):
@@ -109,6 +111,18 @@ def factorize(x, spf):
             count += 1
         res.append([factor, count])
     return res
+
+#
+# 2分探索
+#
+import bisect
+a = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+bisect.bisect(a,55) #=>5
+b = [1,2,2,2,3]
+bisect.bisect_left(b,2) #=>1
+bisect.bisect_right(a,2) #=> 4
+bisect.bisect(a,2) #=> 4
+
 
 #
 # math

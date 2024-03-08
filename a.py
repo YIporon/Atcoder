@@ -1,36 +1,59 @@
 import sys
 from collections import defaultdict
-import math
-
-
-# 平方数で割り続ける
-# def divide_square(n):
-#     if n == 1:
-#         return 1
-#     for i in range(2, int(math.sqrt(n)) + 1):
-#         square = i * i
-#         while n % square == 0:
-#             n //= square
-#             if n == 1:
-#                 return 0
-#     return n
-#
-#
+import bisect
 # N = int(sys.stdin.readline())
-# l = list(map(int, sys.stdin.readline().split()))
+# list1 = [0 for _ in range(N + 1)]
+# list2 = [0 for _ in range(N + 1)]
+# for i in range(N):
+#     c, p = map(int, sys.stdin.readline().split())
+#     if c == 1:
+#         list1[i + 1] = list1[i] + p
+#         list2[i + 1] = list2[i]
+#     else:
+#         list1[i + 1] = list1[i]
+#         list2[i + 1] = list2[i] + p
+# # print(list1)
+# # print(list2)
 #
-# dictionary = defaultdict(int)
-# for number in l:
-#     if number != 0:
-#         n = divide_square(number)
-#         dictionary[n] += 1
-#
-# zero_count = l.count(0)
-# pair_count = zero_count * (N - zero_count) + zero_count * (zero_count - 1) // 2
-# for n, count in dictionary.items():
-#     if n == 1:
-#         # 1と平方数との積は必ず平方数となる
-#         pair_count += count * dictionary[0]
-#     pair_count += count * (count - 1) // 2
+# Q = int(sys.stdin.readline())
+# for i in range(Q):
+#     l, r = map(int, sys.stdin.readline().split())
+#     print(list1[r] - list1[l - 1],list2[r] - list2[l - 1])
 
-print(math.sqrt(25))
+# Q = int(sys.stdin.readline())
+# q_list = []
+# for i in range(Q):
+#     l = list(map(int, sys.stdin.readline().split()))
+#     q_list.append(l)
+#
+# for la, lb in q_list:
+
+cost = [120, 150, 140, 110, 100]
+kcal = [8, 10, 7, 6, 7]
+
+dp = [[0 for j in range(31)] for i in range(5)]
+
+# 一周目は簡単にわかりるので、わかる範囲から埋めていく
+for i in range(31):
+    if i >= kcal[0]:
+        dp[0][i] = 120
+
+# 二周目以降は以降は食べた場合と食べなかった場合を比較して埋めていく
+for i in range(1, 5):
+    for j in range(31):
+        if kcal[i] > j:
+            # カロリーオーバーで絶対食えない
+            dp[i][j] = dp[i -1][j]
+        else:
+            # ここがポイントになりそう
+            choice = dp[i - 1][j - kcal[i]] + cost[i]
+            dp[i][j] = max(choice, dp[i -1][j])
+
+print(dp[4][30])
+
+
+
+
+# for i in range(1, 5):
+#     print(i)
+
