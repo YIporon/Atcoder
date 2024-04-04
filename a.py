@@ -1,59 +1,25 @@
 import sys
-from collections import defaultdict
-import bisect
-# N = int(sys.stdin.readline())
-# list1 = [0 for _ in range(N + 1)]
-# list2 = [0 for _ in range(N + 1)]
-# for i in range(N):
-#     c, p = map(int, sys.stdin.readline().split())
-#     if c == 1:
-#         list1[i + 1] = list1[i] + p
-#         list2[i + 1] = list2[i]
-#     else:
-#         list1[i + 1] = list1[i]
-#         list2[i + 1] = list2[i] + p
-# # print(list1)
-# # print(list2)
-#
-# Q = int(sys.stdin.readline())
-# for i in range(Q):
-#     l, r = map(int, sys.stdin.readline().split())
-#     print(list1[r] - list1[l - 1],list2[r] - list2[l - 1])
+read = sys.stdin.readline
+from bisect import bisect_right
 
-# Q = int(sys.stdin.readline())
-# q_list = []
-# for i in range(Q):
-#     l = list(map(int, sys.stdin.readline().split()))
-#     q_list.append(l)
-#
-# for la, lb in q_list:
+N = int(read())
+A = list(map(int, read().split()))
+Q = int(read())
 
-cost = [120, 150, 140, 110, 100]
-kcal = [8, 10, 7, 6, 7]
+A.sort()
+# クエリを処理する
+for _ in range(Q):
+    query = list(map(int, read().split()))
+    if query[0] == 1:
+        # クエリタイプ1: 数列 A 内の x の直後に y を挿入
+        x, y = query[1], query[2]
+        idx = bisect_right(A, x)
+        A.insert(idx, y)
 
-dp = [[0 for j in range(31)] for i in range(5)]
+    elif query[0] == 2:
+        # クエリタイプ2: 数列 A 内の x を削除
+        x = query[1]
+        A.remove(x)
 
-# 一周目は簡単にわかりるので、わかる範囲から埋めていく
-for i in range(31):
-    if i >= kcal[0]:
-        dp[0][i] = 120
-
-# 二周目以降は以降は食べた場合と食べなかった場合を比較して埋めていく
-for i in range(1, 5):
-    for j in range(31):
-        if kcal[i] > j:
-            # カロリーオーバーで絶対食えない
-            dp[i][j] = dp[i -1][j]
-        else:
-            # ここがポイントになりそう
-            choice = dp[i - 1][j - kcal[i]] + cost[i]
-            dp[i][j] = max(choice, dp[i -1][j])
-
-print(dp[4][30])
-
-
-
-
-# for i in range(1, 5):
-#     print(i)
-
+# 処理後の数列 A を出力
+print(*A)

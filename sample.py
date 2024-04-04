@@ -18,6 +18,13 @@ lb= [int(input()) for _ in range(A)]
 H, W = map(int, sys.stdin.readline().split())
 l = [list(map(int, sys.stdin.readline().split())) for _ in range(H)]
 
+#
+# String
+#
+
+# 文字列Sの3文字目までを取得
+S[:3] #=> S[0]S[1]S[2]を出力
+
 
 #
 # List
