@@ -119,9 +119,7 @@ def factorize(x, spf):
         res.append([factor, count])
     return res
 
-#
 # 2分探索
-#
 import bisect
 a = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 bisect.bisect(a,55) #=>5
@@ -129,6 +127,31 @@ b = [1,2,2,2,3]
 bisect.bisect_left(b,2) #=>1
 bisect.bisect_right(a,2) #=> 4
 bisect.bisect(a,2) #=> 4
+
+# UnionFind
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+
+    def find(self, x):
+        if self.parent[x] == x:
+            return x
+        else:
+            self.parent[x] = self.find(self.parent[x])
+            return self.parent[x]
+
+    def union(self, x, y):
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if root_x != root_y:
+            if self.rank[root_x] < self.rank[root_y]:
+                self.parent[root_x] = root_y
+            elif self.rank[root_x] > self.rank[root_y]:
+                self.parent[root_y] = root_x
+            else:
+                self.parent[root_y] = root_x
+                self.rank[root_x] += 1
 
 
 #
