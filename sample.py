@@ -3,7 +3,7 @@
 #
 import sys
 # String受け取り改行コード削除
-S = input().strip()
+S = sys.stdin.readline().strip()
 
 # Int受け取り
 A = int(sys.stdin.readline())
@@ -74,6 +74,9 @@ n = 5 / 2
 # 各桁の和を計算する関数
 def digit_sum(n):
     return sum(int(digit) for digit in str(n))
+
+# スクリプト終了
+# sys.exit()
 
 
 # 単なる素因数分解
