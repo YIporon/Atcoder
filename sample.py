@@ -12,7 +12,7 @@ A, B = map(int, sys.stdin.readline().split())
 # 空白区切りIntList受け取り
 l = list(map(int, sys.stdin.readline().split()))
 # 標準入力からA個の整数B_iを読み込んでリストに格納する
-lb= [int(input()) for _ in range(A)]
+lb = [int(sys.stdin.readline()) for _ in range(A)]
 
 # 二次元配列受け取り
 H, W = map(int, sys.stdin.readline().split())
@@ -22,6 +22,8 @@ l = [list(map(int, sys.stdin.readline().split())) for _ in range(H)]
 # String
 #
 
+# 空白区切りstring受け取り
+S, T = sys.stdin.readline().split()
 # 文字列Sの3文字目までを取得
 S[:3] #=> S[0]S[1]S[2]を出力
 
@@ -164,3 +166,32 @@ class UnionFind:
 # ルートの作成方法
 import math
 math.sqrt(25) # =>5
+
+#
+# よく出そうな問題の回答
+#
+
+# ビット全探索
+def sample1():
+    N, M = map(int, sys.stdin.readline().split())
+    Sl = [sys.stdin.readline() for _ in range(N)]
+
+    ans = N
+    # 2**N通りの組み合わせを全探索
+    for i in range(2 ** N):
+        # 各ポップコーンが購入で句rか判定するための配列を用意、初期は全て変えない判定でfalse
+        buy = [False] * M
+        cnt = 0
+        # 2進数表記で各ポップコーンの購入判定を行う
+        for j in range(N):
+            if (i >> j) & 1:
+                cnt += 1
+                for k in range(M):
+                    if Sl[j][k] == 'o':
+                        buy[k] = True
+        # 全てのポップコーンが買われているか確認
+        all_buy = all(buy)
+        if all_buy:
+            ans = min(ans, cnt)
+
+    print(ans)
