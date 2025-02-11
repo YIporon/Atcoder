@@ -36,12 +36,16 @@ S[:3] #=> S[0]S[1]S[2]を出力
 s = input()
 l = [int(char) for char in s]
 
+# List ソート
+# Pythonでリストを昇順または降順にソートするにはsort()とsorted()の2つの方法がある。文字列やタプルをソートしたい場合はsorted()を使う。
+l.sort()
+l = l.sort(reverse=True)
+
 # List降順
 l.sort(reverse=True)
 # 1から5までを出力
 for i in range(1, 6):
     print(i)
-
 
 # ListループIndex
 for index, num in enumerate(l):
@@ -51,6 +55,18 @@ for index, num in enumerate(l):
 
 # List合計
 sum(l)
+
+# 3*3の二次元配列を作成
+[list(range(3)) for _ in range(3)]
+
+# 2分探索
+import bisect
+a = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+bisect.bisect(a,55) #=>5
+b = [1,2,2,2,3]
+bisect.bisect_left(b,2) #=>1
+bisect.bisect_right(a,2) #=> 4
+bisect.bisect(a,2) #=> 4
 
 # 二次元配列の横要素合計、縦要素合計
 l[[1, 2, 3][2, 3, 4]]  # 二次元配列
@@ -76,6 +92,24 @@ n = 5 / 2
 # 各桁の和を計算する関数
 def digit_sum(n):
     return sum(int(digit) for digit in str(n))
+
+# n進法→10進法
+def base_10(num_n,n):
+    num_10 = 0
+    for s in str(num_n):
+        num_10 *= n
+        num_10 += int(s)
+    return num_10
+
+# 10進法→n進法
+def base_n(num_10,n):
+    str_n = ''
+    while num_10:
+        if num_10%n>=10:
+            return -1
+        str_n += str(num_10%n)
+        num_10 //= n
+    return int(str_n[::-1])
 
 # スクリプト終了
 # sys.exit()
@@ -123,15 +157,6 @@ def factorize(x, spf):
             count += 1
         res.append([factor, count])
     return res
-
-# 2分探索
-import bisect
-a = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-bisect.bisect(a,55) #=>5
-b = [1,2,2,2,3]
-bisect.bisect_left(b,2) #=>1
-bisect.bisect_right(a,2) #=> 4
-bisect.bisect(a,2) #=> 4
 
 # UnionFind
 class UnionFind:
